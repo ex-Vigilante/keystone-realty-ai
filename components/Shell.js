@@ -30,7 +30,7 @@ export function ModeBadge() {
   const { live } = useApp();
   if (live === null) return <span className="badge badge-muted" aria-hidden="true">AI status</span>;
   return (
-    <span className={`badge ${live ? "badge-live" : "badge-demo"}`} title={live ? "Responses come from Groq (Llama 3.3)" : "No API key set. Responses are pre-written and generated from the demo data."}>
+    <span className={`badge ${live ? "badge-live" : "badge-demo"}`} title={live ? "Responses come from Groq (GPT-OSS 120B)" : "No API key set. Responses are pre-written and generated from the demo data."}>
       <span className="dot" aria-hidden="true" />
       {live ? "Live AI" : "Demo mode"}
     </span>

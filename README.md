@@ -23,7 +23,7 @@ A SaaS-style dashboard for a fictional Austin real-estate agent. It tracks listi
 ## How the AI is built
 
 - The browser calls the app's own API routes (`/api/generate`, `/api/chat`). Only the server talks to the AI provider, so **the API key is never sent to the browser**.
-- Provider: [Groq](https://console.groq.com) free tier (Llama 3.3 70B), called through its OpenAI-compatible streaming API. Swapping to OpenAI, Claude or Gemini means changing one server file.
+- Provider: [Groq](https://console.groq.com) free tier (GPT-OSS 120B by default; any Groq model via `GROQ_MODEL`), called through its OpenAI-compatible streaming API. Swapping to OpenAI, Claude or Gemini means changing one server file.
 - **Demo mode:** with no key, or if the free limit is reached, the API streams realistic answers built from the demo data. The badge in the top bar shows **Demo mode** or **Live AI**.
 - **Abuse protection:** input size limits, history checks, and per-IP and global rate limits.
 
@@ -50,7 +50,7 @@ To use live AI, get a free key at https://console.groq.com (no credit card), the
 
 ```
 GROQ_API_KEY=your_key_here
-GROQ_MODEL=llama-3.3-70b-versatile
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
 `.env.local` is ignored by git. Never commit your key.
