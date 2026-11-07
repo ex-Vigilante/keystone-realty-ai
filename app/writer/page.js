@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
+import AiMark from "@/components/AiMark";
 import { ModeBadge } from "@/components/Shell";
 import { streamText } from "@/lib/streamClient";
 
@@ -98,8 +99,8 @@ export default function WriterPage() {
     <>
       <div className="page-head">
         <div>
-          <h1>AI Listing Writer</h1>
-          <p className="muted">Draft MLS copy from the facts you enter. Review before publishing.</p>
+          <h1>Listing Writer <AiMark /></h1>
+          <p className="muted"><strong>What the AI does:</strong> turns these facts into ready-to-post listing copy in your chosen tone. The example is filled in, so just press the button.</p>
         </div>
         <ModeBadge />
       </div>
@@ -132,7 +133,7 @@ export default function WriterPage() {
           </div>
 
           <div className="field">
-            <label htmlFor="w-tag">Key features <span className="muted small">(Enter or comma adds, up to 12)</span></label>
+            <label htmlFor="w-tag">Key features <span className="muted small">(press Enter to add)</span></label>
             <div className="tags" onClick={() => document.getElementById("w-tag")?.focus()}>
               {features.map((t) => (
                 <span key={t} className="tag">
@@ -152,30 +153,24 @@ export default function WriterPage() {
           </div>
 
           <div className="form-grid">
-            <fieldset className="field radios">
+            <fieldset className="field radios span-all">
               <legend>Tone</legend>
               {["Warm", "Luxury", "Concise"].map((t) => (
                 <label key={t} className="radio"><input type="radio" name="tone" value={t} checked={f.tone === t} onChange={set("tone")} /><span>{t}</span></label>
               ))}
             </fieldset>
-            <fieldset className="field radios">
-              <legend>Length</legend>
-              {["Short", "Standard", "Long"].map((t) => (
-                <label key={t} className="radio"><input type="radio" name="length" value={t} checked={f.length === t} onChange={set("length")} /><span>{t}</span></label>
-              ))}
-            </fieldset>
           </div>
 
-          <button type="submit" className="btn btn-primary" disabled={busy}>{busy ? "Writing..." : "Write description"}</button>
+          <button type="submit" className="btn btn-primary" disabled={busy}>{busy ? "Writing..." : "Write the listing with AI"}</button>
         </form>
 
         <section className="card output" aria-labelledby="out-h">
           <div className="output-head">
-            <h2 id="out-h">Description</h2>
+            <h2 id="out-h">Your listing copy</h2>
             <span className="num muted small" aria-label={`${out.length} characters`}>{out.length.toLocaleString("en-US")} chars</span>
           </div>
           <div className={`output-body${busy ? " streaming" : ""}`} aria-busy={busy}>
-            {err ? <p className="error" role="alert">{err}</p> : out ? <p>{out}</p> : <p className="muted">The generated description appears here. MLS fields usually cap at 1,000 to 4,000 characters, so check your board&apos;s limit.</p>}
+            {err ? <p className="error" role="alert">{err}</p> : out ? <p>{out}</p> : <p className="muted">Your listing copy will appear here. Press the button to see it, then check your board&apos;s character limit before posting.</p>}
           </div>
           <div className="output-actions">
             <button type="button" className="btn btn-ghost" onClick={copy} disabled={!out || busy}><Icon name="copy" size={15} /> {copied ? "Copied" : "Copy"}</button>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/Icon";
+import AiMark from "@/components/AiMark";
 import { ModeBadge } from "@/components/Shell";
 import { streamText } from "@/lib/streamClient";
 import { loadStageOverrides } from "@/lib/leadStages";
@@ -103,8 +104,8 @@ export default function AssistantPage() {
     <>
       <div className="page-head">
         <div>
-          <h1>Assistant</h1>
-          <p className="muted">Ask about listings, leads and closings. Answers draw on the demo data only.</p>
+          <h1>Assistant <AiMark /></h1>
+          <p className="muted"><strong>Answers from your real listings and leads data.</strong> Ask in plain English, or tap a question below.</p>
         </div>
         <div className="head-actions">
           <ModeBadge />
@@ -116,8 +117,13 @@ export default function AssistantPage() {
         <div className="chat-log" role="log" aria-live="off" aria-busy={busy} aria-label="Conversation" tabIndex={0}>
           {msgs.length === 0 && (
             <div className="chat-empty">
-              <p className="strong">Start with a question</p>
-              <p className="muted">The assistant sees a compact summary of 14 listings, 12 leads (with your current stages) and monthly closings.</p>
+              <p className="strong">Tap a question to see the AI answer</p>
+              <p className="muted">It reads 14 listings, 12 leads (with your current stages) and monthly closings.</p>
+              <div className="chips chips-big" aria-label="Suggested questions">
+                {CHIPS.map((c) => (
+                  <button key={c} type="button" className="chip-btn" disabled={busy} onClick={() => send(c)}>{c}</button>
+                ))}
+              </div>
             </div>
           )}
           {msgs.map((m, i) => (
@@ -134,11 +140,11 @@ export default function AssistantPage() {
         </div>
         <p className="sr-only" role="status" aria-live="polite">{status}</p>
 
-        <div className="chips" aria-label="Suggested questions">
+        {msgs.length > 0 && <div className="chips" aria-label="Suggested questions">
           {CHIPS.map((c) => (
             <button key={c} type="button" className="chip-btn" disabled={busy} onClick={() => send(c)}>{c}</button>
           ))}
-        </div>
+        </div>}
 
         <form className="composer" onSubmit={(e) => { e.preventDefault(); send(input); }}>
           <label htmlFor="chat-in" className="sr-only">Ask about your pipeline</label>

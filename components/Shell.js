@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Icon from "./Icon";
+import AiMark from "./AiMark";
 import { AGENT } from "@/lib/data";
 
 const AppCtx = createContext({ theme: "light", toggleTheme: () => {}, live: null });
@@ -13,8 +14,8 @@ const NAV = [
   { href: "/", label: "Overview", icon: "grid" },
   { href: "/listings", label: "Listings", icon: "home" },
   { href: "/leads", label: "Leads", icon: "users" },
-  { href: "/writer", label: "Listing Writer", short: "Writer", icon: "pen" },
-  { href: "/assistant", label: "Assistant", icon: "chat" },
+  { href: "/writer", label: "Listing Writer", short: "Writer", icon: "pen", ai: true },
+  { href: "/assistant", label: "Assistant", icon: "chat", ai: true },
 ];
 
 const THEME_COLORS = { light: "#F6F2EA", dark: "#0B1320" };
@@ -92,6 +93,7 @@ export default function Shell({ children }) {
                   <Link href={n.href} className="nav-link" aria-current={isActive(n.href) ? "page" : undefined}>
                     <Icon name={n.icon} />
                     {n.label}
+                    {n.ai && <AiMark />}
                   </Link>
                 </li>
               ))}

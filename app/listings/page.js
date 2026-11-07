@@ -24,21 +24,17 @@ function ListingsView() {
   const params = useSearchParams();
   const [q, setQ] = useState(params.get("q") || "");
   const [status, setStatus] = useState("All");
-  const [hood, setHood] = useState("All");
   const [sort, setSort] = useState({ key: "dom", dir: "desc" });
 
   useEffect(() => {
     setQ(params.get("q") || "");
   }, [params]);
 
-  const hoods = useMemo(() => [...new Set(listings.map((l) => l.neighborhood))].sort(), []);
-
   const rows = useMemo(() => {
     const t = q.trim().toLowerCase();
     const r = listings.filter(
       (l) =>
         (status === "All" || l.status === status) &&
-        (hood === "All" || l.neighborhood === hood) &&
         (!t || `${l.address} ${l.neighborhood} ${l.zip} ${l.status} ${l.id}`.toLowerCase().includes(t))
     );
     const { key, dir } = sort;
@@ -48,7 +44,7 @@ function ListingsView() {
       return dir === "asc" ? c : -c;
     });
     return r;
-  }, [q, status, hood, sort]);
+  }, [q, status, sort]);
 
   const setSortKey = (key) => setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" }));
 
@@ -72,13 +68,6 @@ function ListingsView() {
             {["All", "Active", "Pending", "Sold"].map((s) => <option key={s}>{s}</option>)}
           </select>
         </div>
-        <div className="field">
-          <label htmlFor="lh">Neighborhood</label>
-          <select id="lh" value={hood} onChange={(e) => setHood(e.target.value)}>
-            <option>All</option>
-            {hoods.map((h) => <option key={h}>{h}</option>)}
-          </select>
-        </div>
         <div className="field sort-mobile">
           <label htmlFor="lsort">Sort by</label>
           <select id="lsort" value={`${sort.key}:${sort.dir}`} onChange={(e) => { const [key, dir] = e.target.value.split(":"); setSort({ key, dir }); }}>
@@ -91,7 +80,7 @@ function ListingsView() {
       </div>
 
       {rows.length === 0 ? (
-        <div className="card empty">No listings match those filters. <button type="button" className="text-link" onClick={() => { setQ(""); setStatus("All"); setHood("All"); }}>Clear filters</button></div>
+        <div className="card empty">No listings match those filters. <button type="button" className="text-link" onClick={() => { setQ(""); setStatus("All"); }}>Clear filters</button></div>
       ) : (
         <>
           <div className="card table-card">

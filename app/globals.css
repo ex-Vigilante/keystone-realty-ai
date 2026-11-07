@@ -314,3 +314,15 @@ tbody tr:last-child td { border-bottom: 0; }
 
 .head-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .chart-note { margin-top: 6px; }
+
+/* ---------- AI marker + intro ---------- */
+.ai-mark { display: inline-flex; align-items: center; margin-left: 6px; padding: 0 6px; border: 1px solid var(--accent-strong); border-radius: 99px; color: var(--accent-strong); font-family: var(--font-sans); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1.5; vertical-align: middle; text-transform: uppercase; }
+.sidebar .ai-mark { color: var(--accent); border-color: var(--accent); }
+.intro { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 20px; border-left: 3px solid var(--accent); }
+.intro h2 { font-size: 1.15rem; margin-bottom: 4px; }
+.intro > div:first-child { flex: 1 1 320px; max-width: 640px; }
+.intro-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.intro-actions .btn { text-decoration: none; }
+.chips-big { justify-content: center; padding: 14px 0 0; }
+.chips-big .chip-btn { padding: 8px 14px; font-size: 0.9rem; }
+@media (max-width: 600px) { .intro-actions .btn { flex: 1 1 100%; } }

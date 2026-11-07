@@ -28,6 +28,17 @@ export default function Overview() {
 
   return (
     <>
+      <section className="card intro" aria-labelledby="intro-h">
+        <div>
+          <h2 id="intro-h">A dashboard for a real-estate agent, with AI built in</h2>
+          <p className="muted">Track listings and leads in one place. The AI writes listing copy from a few facts and answers questions about your pipeline. Try it with the sample data below.</p>
+        </div>
+        <div className="intro-actions">
+          <Link href="/writer" className="btn btn-primary">Write a listing with AI</Link>
+          <Link href="/assistant" className="btn btn-ghost">Ask the AI about your pipeline</Link>
+        </div>
+      </section>
+
       <div className="page-head">
         <div>
           <h1>Overview</h1>
